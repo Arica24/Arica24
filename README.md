@@ -19,7 +19,7 @@
 
 I'm interested in different areas of tech, from building applications to investigating digital evidence and understanding IT risks. I like projects where I can try things out and see the result.
 
-One of my first practical tools came from my part-time job. I wanted a quicker way to check which products were excluded from a promotion, so I made a **product ID checker** instead of searching through the paperwork every time.
+One of my first practical tools came from my part time job. I wanted a quicker way to check which products were excluded from a promotion, so I made a **product ID checker** instead of searching through the paperwork every time.
 
 Outside tech, I love **space, LEGO, baking and writing**. I also like the occasional game, which is how PacMan ended up here. 👻
 
