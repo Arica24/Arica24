@@ -38,16 +38,34 @@ Outside tech, I love **space, LEGO, baking and writing**. I also like the occasi
 ![Automation](https://img.shields.io/badge/Automation-8A5CFF?style=for-the-badge)
 ![IT Support](https://img.shields.io/badge/IT_Support-4592AB?style=for-the-badge)
 
-## 🎮 Take a break — play PacMan
+<h2></h2>
+
+<h3 align="center">
+  You must be bored of reading my bio by now…<br>
+  take a break and try the game I built! 👀
+</h3>
+
+<h3 align="center">
+  🎤 Introducing the one, the only…<br>
+  THEEEEE PACMAN!! 👻🟡
+</h3>
+
+<p align="center">
+  <i>A classic that never gets old. Go on, one game won’t hurt…</i>
+</p>
 
 <p align="center">
   <a href="https://Arica24.github.io/PacMan/">
     <img src="assets/play-pacman.gif" alt="Play PacMan — a browser game for phone and computer" width="850">
   </a>
 </p>
-<p align="center"><i>There’s always time for one more game.</i> 👻 ⭐</p>
-<p align="center"><a href="https://Arica24.github.io/PacMan/"><b>▶ Play in your browser</b></a> · <a href="https://github.com/Arica24/PacMan">View the code</a></p>
 
+<p align="center">
+  <a href="https://Arica24.github.io/PacMan/"><b>▶ Play in your browser</b></a>
+  ·
+  <a href="https://github.com/Arica24/PacMan">View the code</a>
+</p>
+  
 ## 💻 My growing toolkit
 
 *Languages and tools I've used or am developing my skills in through projects and labs.*
@@ -97,7 +115,7 @@ Outside tech, I love **space, LEGO, baking and writing**. I also like the occasi
 
 | Project | Why I made it |
 | --- | --- |
-| [🟡 Yellow Dot Promo Checker](https://github.com/Arica24/Yellow-dot-Promochecker) | To check promotion exclusions by product ID at my part-time job. Less paperwork, quicker answers. |
+| [🟡 Yellow Dot Promo Checker](https://github.com/Arica24/Yellow-dot-Promochecker) | To check promotion exclusions by product ID at my part time job. Less paperwork, quicker answers. |
 | [🔐 Private Notes App](https://github.com/Arica24/Private-notes-App) | To practise building a web app with login and private notes. |
 | [🔎 Security Log Analyser](https://github.com/Arica24/Security-log-analyser) | To find useful information in security logs. |
 | [🧮 Cryptography Labs](https://github.com/Arica24/Python-cryptography-lab) | To understand ciphers, encryption and decryption by writing code. |
