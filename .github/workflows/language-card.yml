@@ -1,0 +1,140 @@
+name: Update language card
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 */6 * * *'
+  push:
+    paths:
+      - '.github/workflows/language-card.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-language-card
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+      - name: Build card from public repository languages
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PROFILE_USER: Arica24
+        run: |
+          python3 - <<'PYTHON'
+          import json
+          import math
+          import os
+          import time
+          from collections import Counter
+          from concurrent.futures import ThreadPoolExecutor
+          from html import escape
+          from pathlib import Path
+          from urllib.error import HTTPError, URLError
+          from urllib.request import Request, urlopen
+          
+          USER = os.environ.get('PROFILE_USER', 'Arica24')
+          COLORS = {
+              'Jupyter Notebook': '#AC83FF', 'Python': '#579FFF',
+              'HTML': '#FF69B4', 'Shell': '#7ED957',
+              'JavaScript': '#FFE066', 'CSS': '#50E3E8',
+              'C++': '#FF964F', 'C': '#E9EDF5', 'PHP': '#D999D4',
+              'Java': '#F65B67', 'SQL': '#95ADFF', 'Other': '#91A0B7',
+          }
+          
+          def fetch(url):
+              headers = {'Accept': 'application/vnd.github+json', 'User-Agent': 'Arica-language-card'}
+              token = os.environ.get('GH_TOKEN')
+              if token:
+                  headers['Authorization'] = 'Bearer ' + token
+              for attempt in range(3):
+                  try:
+                      with urlopen(Request(url, headers=headers), timeout=30) as response:
+                          return json.load(response)
+                  except HTTPError as error:
+                      if error.code not in (429, 500, 502, 503, 504) or attempt == 2:
+                          raise
+                  except (URLError, TimeoutError):
+                      if attempt == 2:
+                          raise
+                  time.sleep(2 ** attempt)
+          
+          def language_totals():
+              repos = []
+              page = 1
+              while True:
+                  batch = fetch(f'https://api.github.com/users/{USER}/repos?type=owner&per_page=100&page={page}')
+                  repos.extend(r for r in batch if not r['fork'] and not r['private'])
+                  if len(batch) < 100:
+                      break
+                  page += 1
+              totals = Counter()
+              with ThreadPoolExecutor(max_workers=4) as pool:
+                  for languages in pool.map(fetch, [r['languages_url'] for r in repos]):
+                      totals.update(languages)
+              return totals, len(repos)
+          
+          def render(totals, repo_count):
+              items = sorted(((n, b) for n, b in totals.items() if b > 0), key=lambda x: (-x[1], x[0]))
+              if not items:
+                  raise ValueError('No language data found; leaving the previous card unchanged.')
+              if len(items) > 12:
+                  items = items[:11] + [('Other', sum(b for _, b in items[11:]))]
+              total = sum(b for _, b in items)
+              # Unknown languages receive stable, unused colours from this palette.
+              extra = ['#A2C7A0', '#F7BB9D', '#7DABCF', '#C9D67B', '#B8A1C6', '#EBA4AA', '#72B9A6', '#D1B484', '#92BFE0', '#D7AFDF', '#B3C09B', '#C0C9D9']
+              color_map = dict(COLORS)
+              for i, name in enumerate(sorted(n for n, _ in items if n not in color_map)):
+                  color_map[name] = extra[i % len(extra)]
+              rows = math.ceil(len(items) / 2)
+              height = 154 + rows * 38
+              parts = [f'<svg xmlns="http://www.w3.org/2000/svg" width="660" height="{height}" viewBox="0 0 660 {height}" role="img" aria-labelledby="title desc">',
+                  '<title id="title">Most used languages in Arica’s public repositories</title>',
+                  '<desc id="desc">' + escape('; '.join(f'{n}: {b / total * 100:.2f}%' for n, b in items)) + '</desc>',
+                  '<defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#20182D"/><stop offset="1" stop-color="#101827"/></linearGradient><clipPath id="bar"><rect x="28" y="88" width="604" height="14" rx="7"/></clipPath></defs>',
+                  f'<rect x="1" y="1" width="658" height="{height-2}" rx="18" fill="url(#bg)" stroke="#594175"/>',
+                  '<g font-family="Arial, Helvetica, sans-serif">',
+                  '<text x="28" y="46" fill="#FF8BCC" font-size="27" font-weight="700">Most Used Languages</text>',
+                  f'<text x="28" y="68" fill="#B9ADC9" font-size="12">Code size across {repo_count} public repositories · excluding forks</text>',
+                  '<g clip-path="url(#bar)">']
+              x = 28.0
+              for name, count in items:
+                  width = 604 * count / total
+                  parts.append(f'<rect x="{x:.6f}" y="88" width="{width:.6f}" height="14" fill="{color_map[name]}"/>')
+                  x += width
+              parts.append('</g>')
+              for i, (name, count) in enumerate(items):
+                  x = 28 + (i % 2) * 312
+                  y = 135 + (i // 2) * 38
+                  parts.append(f'<circle cx="{x+6}" cy="{y-5}" r="6" fill="{color_map[name]}"/>')
+                  parts.append(f'<text x="{x+22}" y="{y}" fill="{color_map[name]}" font-size="16">{escape(name)}</text>')
+                  parts.append(f'<text x="{x+282}" y="{y}" text-anchor="end" fill="#F4F0FA" font-size="15">{count/total*100:.2f}%</text>')
+              parts.extend(['</g>', '</svg>'])
+              return '\n'.join(parts) + '\n'
+          
+          if __name__ == '__main__':
+              totals, repo_count = language_totals()
+              svg = render(totals, repo_count)
+              output = Path('assets/language-card.svg')
+              output.parent.mkdir(parents=True, exist_ok=True)
+              output.write_text(svg, encoding='utf-8')
+              print(f'Updated {output} from {repo_count} repositories: {dict(totals)}')
+          PYTHON
+      - name: Save updated card
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/language-card.svg
+          if git diff --cached --quiet; then
+            echo 'Language data has not changed.'
+            exit 0
+          fi
+          git commit -m 'Update language card'
+          git push
