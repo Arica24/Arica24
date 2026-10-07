@@ -139,7 +139,7 @@ Outside tech, I love **space, LEGO, baking and writing**. I also like the occasi
   <img src="https://github-stats-extended.vercel.app/api/top-langs/?username=Arica24&layout=compact&theme=tokyonight&hide_border=true" alt="Languages in Arica's public repositories" width="355">
 </p>
 <p align="center">
-<img src="https://streak-stats.demolab.com/?user=Arica24&theme=tokyonight&hide_border=true&v=2" alt="Arica's GitHub contribution streak" width="440">
+<img src="assets/language-card.svg" alt="Languages in my public repositories" width="440">
 </p>
 
 <p align="center"><b>Thanks for stopping by!</b> ⭐<br><sub>If you came for the code and stayed for PacMan, fair enough.</sub></p>
