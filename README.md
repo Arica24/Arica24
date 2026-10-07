@@ -138,8 +138,12 @@ Outside tech, I love **space, LEGO, baking and writing**. I also like the occasi
   <img src="https://github-stats-extended.vercel.app/api?username=Arica24&show_icons=true&hide_rank=true&theme=tokyonight&hide_border=true" alt="Arica's GitHub statistics" width="440">
   <img src="assets/language-card.svg" alt="Languages in my public repositories" width="440">
 </p>
+
 <p align="center">
-<img src="assets/language-card.svg" alt="Languages in my public repositories" width="440">
+  <img src="https://streak-stats.demolab.com/?user=Arica24&theme=tokyonight&hide_border=true&v=2" alt="Arica's GitHub contribution streak" width="440">
 </p>
 
-<p align="center"><b>Thanks for stopping by!</b> ⭐<br><sub>If you came for the code and stayed for PacMan, fair enough.</sub></p>
+<p align="center">
+  <b>Thanks for stopping by!</b> ⭐<br>
+  <sub>If you came for the code and stayed for PacMan, fair enough.</sub>
+</p>
