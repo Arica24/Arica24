@@ -5,7 +5,7 @@
 <rect x="1" y="1" width="658" height="266" rx="18" fill="url(#bg)" stroke="#594175"/>
 <g font-family="Arial, Helvetica, sans-serif">
 <text x="28" y="46" fill="#FF8BCC" font-size="27" font-weight="700">Most Used Languages</text>
-<text x="28" y="68" fill="#B9ADC9" font-size="12">Code size across all public repositories · excluding forks</text>
+<text x="28" y="68" fill="#B9ADC9" font-size="12">Code size across 15 public repositories · excluding forks</text>
 <g clip-path="url(#bar)">
 <rect x="28.000000" y="88" width="503.820321" height="14" fill="#AC83FF"/>
 <rect x="531.820321" y="88" width="42.488669" height="14" fill="#FFE066"/>
