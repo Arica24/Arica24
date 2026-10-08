@@ -115,7 +115,7 @@ Outside tech, I love **space, LEGO, baking and writing**. I also like the occasi
 
 | Project | Why I made it |
 | --- | --- |
-| [👟 VM-Fixture (In progress..🔄)](https://github.com/Arica24/VM-fixture) | To organise visual merchandising fixtures and product displays at my part time job. |
+| [👟 VM-Fixture](https://github.com/Arica24/VM-fixture)[In progress..🚧] | To organise visual merchandising fixtures and product displays at my part time job. |
 | [🟡 Yellow Dot Promo Checker](https://github.com/Arica24/Yellow-dot-Promochecker) | To check promotion exclusions by product ID at my part time job. Less paperwork, quicker answers. |
 | [🔐 Private Notes App](https://github.com/Arica24/Private-notes-App) | To practise building a web app with login and private notes. |
 | [🔎 Security Log Analyser](https://github.com/Arica24/Security-log-analyser) | To find useful information in security logs. |
